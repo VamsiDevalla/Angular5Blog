@@ -1,0 +1,30 @@
+<a routerLink="/posts" class="btn btn-info btn-sm mb-4"><i class="fa fa-chevron-circle-left"></i> back</a>
+
+<div *ngIf="post" class="card">
+  <h5 class="card-header">{{post.title}}</h5>
+  <div class="card-body">
+      <p class="card-title">{{post.body}}</p>
+      <div class="card-text">
+          <div class="row">
+              <div class="col-md-6">
+                 Likes: {{post.likes.length}}
+              </div>
+              <div class="col-md-6">
+                 Comments: {{post.comments.length}}
+                </div>
+      </div>
+    </div>
+    <div class="card-footer text-muted">
+        <div class="card card-body p-2 mb-2" *ngFor="let comment of post.comments">
+          <div class="row">
+            <div class="col-md-9">
+              <p>{{comment.text}}</p>
+            </div>
+            <div class="col-md-3">
+              <small>{{comment.date|date:"short"}}</small>
+            </div>
+          </div>
+          </div>
+    </div>
+  </div>
+</div>

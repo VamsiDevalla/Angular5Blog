@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="card card-body">
+      <form #signUpForm="ngForm" (ngSubmit)="signUp(signUpForm)">
+        <div class="form-group">
+          <label>UserName:</label>
+          <input type="text" class="form-control"
+          [(ngModel)]="user.Username"
+          name = "Username"
+          #signUpUsername="ngModel"
+          [ngClass]="{'is-invalid':signUpUsername.errors && signUpUsername.touched}"
+          placeholder="enter username"
+          minlength="3"
+          required
+          >
+          <div [hidden]="!signUpUsername.errors?.required" class="invalid-feedback">
+            username is required
+          </div>
+          <div [hidden]="!signUpUsername.errors?.minlength" class="invalid-feedback">
+            username should be equal or greater than 3 letters
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Password:</label>
+          <input type="password" class="form-control"
+          [(ngModel)]="user.Password"
+          name = "Password"
+          #signUpPassword="ngModel"
+          [ngClass]="{'is-invalid':signUpPassword.errors && signUpPassword.touched}"
+          placeholder="enter password"
+          minlength="3"
+          required
+          >
+          <div [hidden]="!signUpPassword.errors?.required" class="invalid-feedback">
+            Password is required
+          </div>
+          <div [hidden]="!signUpPassword.errors?.minlength" class="invalid-feedback">
+            Password should be equal or greater than 3 letters
+          </div>
+        </div>
+        <button class="btn btn-block btn-primary">signUp</button>
+      </form>
+    </div>
+  </div>

@@ -1,0 +1,50 @@
+<div class="container">
+<button class="btn btn-info mb-2" (click)="showForm()">{{showFormButton}} <i [class]="show?'fa fa-minus':'fa fa-plus'"></i></button>
+<app-post-form [hidden]="!show" [post]='currentPost' [isEditing]='isEditing' 
+(newPost)="onNewPost($event)" (updatedPost)="onUpdatedPost($event)" ></app-post-form>
+    <div *ngFor="let post of posts">
+    <div class="card mt-4">
+      <h3 class="card-header mb-2"><a routerLink="/posts/{{post._id}}">{{post.title}}</a></h3>
+        <div class="card-body">
+        
+        <div class="row">
+          <div class="col-md-9">
+            <h5 class="card-subtitle mb-2 text-muted">created by: {{post.createdBy.username}}</h5>
+          </div>
+          <div class="col-md-3">
+            <span *ngIf=" post.createdBy.username == currentUser.Username">
+              <button class="btn btn-warning btn-sm" (click)="editPost(post)">Edit <i class="fa fa-pencil"></i></button>
+              <button class="btn btn-danger btn-sm" (click)="removePost(post)">Remove <i class="fa fa-remove"></i></button>
+            </span>
+          </div>
+        </div>
+        <hr>
+        <p>{{post.body}}</p>
+        <hr>
+        <button  [class]="post.liked ? 'btn btn-primary' : 'btn' " (click)="likePost(post._id,currentUser)">{{post.likes.length}} <i class="fa fa-thumbs-up"></i></button>
+        <button [class]="post.showComment? 'btn btn-warning ':'btn'" (click)="post.showComment = !post.showComment">{{post.comments.length}} <i class="fa fa-comments"></i></button>
+      </div>
+      <div *ngIf="post.showComment">
+        <div class="card-footer text-muted">
+        <div class="card">
+          <div class="card-header">
+            Comments
+          </div>
+          <app-comment class="card-title mt-2 " [post]='post' 
+          (newComment)="newComment($event)"></app-comment>
+              <div class="card card-body p-2 mb-2" *ngFor="let comment of post.comments">
+                <div class="row">
+                  <div class="col-md-9">
+                    <p>{{comment.text}}</p>
+                  </div>
+                  <div class="col-md-3">
+                    <small>{{comment.date|date:"short"}}</small>
+                  </div>
+                </div>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+</div>

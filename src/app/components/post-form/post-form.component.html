@@ -1,0 +1,32 @@
+<div class="container">
+  <form #postForm='ngForm' (ngSubmit)="isEditing? onEdit(postForm):onSubmit(postForm)">
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" class="form-control" [(ngModel)]="post.title" [ngClass]="{'is-invalid':postTitle.errors && postTitle.touched}"
+        name="title" placeholder="enter title" #postTitle='ngModel' required minlength="4">
+
+      <div [hidden]="!postTitle.errors?.required" class="invalid-feedback">
+        Title is required
+      </div>
+      <div [hidden]="!postTitle.errors?.minlength" class="invalid-feedback">
+        Title must be lager than 4 letters
+      </div>
+    </div>
+    <div class="form-group">
+      <label>body</label>
+      <input type="text" class="form-control" [(ngModel)]="post.body" [ngClass]="{'is-invalid':postBody.errors && postBody.touched}"
+        name="body" placeholder="enter body" #postBody='ngModel' required minlength="10">
+      <div [hidden]="!postBody.errors?.required" class="invalid-feedback">
+        Body is required
+      </div>
+      <div [hidden]="!postBody.errors?.minlength" class="invalid-feedback">
+        Body must have 10 letters
+      </div>
+    </div>
+    <input type="hidden" name="_id" [(ngModel)]='post._id'>
+    <input type="hidden" name="createdBy" [(ngModel)]='post.createdBy'>
+    <button *ngIf='!isEditing' class="btn btn-success btn-block">Submit Post</button>
+    <button *ngIf='isEditing' class="btn btn-warning btn-block">Save Post</button>
+  </form>
+
+</div>
